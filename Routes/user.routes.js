@@ -71,4 +71,37 @@ router.route('/pushRegisteredPayeesBill').post(function (req,res){
             console.error(err);
         });
 });
+router.route('/pushFundTransferHistory').post(function (req,res){
+    User.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+            $push: {
+                FundTransferHistory: req.body.FundTransferHistory
+            },
+        }
+    )
+        .then(doc => {
+            res.send('Added to Fund transfer history');
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
+
+router.route('/pushRegisteredPayeesFund').post(function (req,res){
+    User.findOneAndUpdate(
+        { _id: req.body._id },
+        {
+            $push: {
+                RegisteredPayeesFund: req.body.RegisteredPayeesFund
+            },
+        }
+    )
+        .then(doc => {
+            res.send('Payee Added');
+        })
+        .catch(err => {
+            console.error(err);
+        });
+});
 module.exports = router;
